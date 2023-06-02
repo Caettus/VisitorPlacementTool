@@ -1,0 +1,12 @@
+/Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/obj/Debug/net7.0/VPTLogic.csproj.AssemblyReference.cache
+/Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/obj/Debug/net7.0/VPTLogic.GeneratedMSBuildEditorConfig.editorconfig
+/Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/obj/Debug/net7.0/VPTLogic.AssemblyInfoInputs.cache
+/Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/obj/Debug/net7.0/VPTLogic.AssemblyInfo.cs
+/Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/obj/Debug/net7.0/VPTLogic.csproj.CoreCompileInputs.cache
+/Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/bin/Debug/net7.0/VPTLogic.deps.json
+/Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/bin/Debug/net7.0/VPTLogic.dll
+/Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/bin/Debug/net7.0/VPTLogic.pdb
+/Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/obj/Debug/net7.0/VPTLogic.dll
+/Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/obj/Debug/net7.0/refint/VPTLogic.dll
+/Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/obj/Debug/net7.0/VPTLogic.pdb
+/Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/obj/Debug/net7.0/ref/VPTLogic.dll

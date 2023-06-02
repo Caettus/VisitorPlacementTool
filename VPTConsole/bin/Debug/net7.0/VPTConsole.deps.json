@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "VPTConsole/1.0.0": {
+        "dependencies": {
+          "VPTLogic": "1.0.0"
+        },
+        "runtime": {
+          "VPTConsole.dll": {}
+        }
+      },
+      "VPTLogic/1.0.0": {
+        "runtime": {
+          "VPTLogic.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "VPTConsole/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "VPTLogic/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
