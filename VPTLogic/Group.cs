@@ -16,7 +16,12 @@ public class Group
         VisitorsList = new List<Visitor>();
     }
 
-
+    public void OrderGroupByAge()
+    {
+        var ordernedVisitorsList = VisitorsList.OrderBy(v => v.Adult);
+        VisitorsList = ordernedVisitorsList.ToList();
+    }
+    
     public void CountVisitors()
     {
         int adults = 0;

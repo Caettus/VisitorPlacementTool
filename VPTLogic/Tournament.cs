@@ -130,6 +130,8 @@ public class Tournament
     }
     public void PlaceInSector(Group group)
     {
+        OrderGroupsByChildrenCount();
+        group.OrderGroupByAge();
         foreach (Sector sector in SectorsList)
         {
             if (group.ContainsChild && !sector.FrontSeatsFull && !group.CheckIfChildrenSeated())
@@ -144,6 +146,8 @@ public class Tournament
     }
     public void PlaceChildrenInSector(Sector sector, Group group)
     {
+        OrderGroupsByChildrenCount();
+        group.OrderGroupByAge();
         if (sector.RowsList[0].SeatsLeft > group.ChildCount)
         {
             sector.RowsList[0].PlaceVisitors(group);
@@ -160,9 +164,10 @@ public class Tournament
 
     #region Ordering
 
-    public void OrderByChildCount()
+    public void OrderGroupsByChildrenCount()
     {
-        Groups = Groups.OrderByDescending(group => group.ChildCount).ToList();
+        var orderGroups = Groups.OrderByDescending(g => g.ChildCount);
+        Groups = orderGroups.ToList();
     }
 
     #endregion
