@@ -84,7 +84,7 @@ public class Tournament
             {
                 Groups.RemoveAt(i);
             }
-            else if (!group.CheckIfGroupContainsAdult())
+            else if (!group.ContainsAdult)
             {
                 Groups.RemoveAt(i);
             }
@@ -132,11 +132,38 @@ public class Tournament
     {
         foreach (Sector sector in SectorsList)
         {
-            if (!sector.CheckIfFull())
+            if (group.ContainsChild && !sector.FrontSeatsFull && !group.CheckIfChildrenSeated())
+            {
+                PlaceChildrenInSector(sector, group);
+            }
+            else if (!sector.CheckIfFull())
             {
                 sector.PlaceInRow(group);
             }   
         }
     }
+    public void PlaceChildrenInSector(Sector sector, Group group)
+    {
+        if (sector.RowsList[0].SeatsLeft > group.ChildCount)
+        {
+            sector.RowsList[0].PlaceVisitors(group);
+            group.CheckIfChildrenSeated();
+            group.CheckIfGroupSeated();
+            if (group.ChidrenSeated && !group.IsPlaced)
+            {
+                sector.PlaceInRow(group);
+            }
+        }
+
+    }
+    #endregion
+
+    #region Ordering
+
+    public void OrderByChildCount()
+    {
+        Groups = Groups.OrderByDescending(group => group.ChildCount).ToList();
+    }
+
     #endregion
 }

@@ -6,6 +6,7 @@ public class Row
     public string Code { get; private set; }
     public int RowNumber { get; private set; }
     public bool Full { get; private set; }
+    public int SeatsLeft { get; private set; }
     
     
     public bool CreateSeats(int length)
@@ -60,7 +61,20 @@ public class Row
                 Full = false;
             }
         }
+       return Full;
+    }
 
-        return Full;
+    public int CountSeatsLeft()
+    {
+        int seatsLeft = 0;
+        foreach (Seat seat in SeatsList)
+        {
+            if (!seat.Occupied)
+            {
+                seatsLeft++;
+            }
+        }
+        SeatsLeft = seatsLeft;
+        return seatsLeft;
     }
 }

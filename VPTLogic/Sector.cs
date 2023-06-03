@@ -5,6 +5,7 @@ public class Sector
     public char SectorLetter { get; private set; }
     public List<Row> RowsList { get; private set; }
     public int TotalSeats { get; private set; }
+    public bool FrontSeatsFull { get; private set; }
     
     public Sector(int rowCount, int rowLength, char sectorLetter)
     {
@@ -68,7 +69,26 @@ public class Sector
                 {
                     continue;
                 }
-            }
-        
+            } 
+    }
+
+    public void PlaceChildrenInSector(Sector sector, Group group)
+    {
+        if (sector.RowsList[0].SeatsLeft > group.ChildCount)
+        {
+            sector.RowsList[0].PlaceVisitors(group);
+        }
+    }
+    public bool CheckIfFrontSeatsFull()
+    {
+        if (RowsList[0].CheckIfFull())
+        {
+            FrontSeatsFull = true;
+        }
+        else
+        {
+            FrontSeatsFull = false;
+        }
+        return FrontSeatsFull;
     }
 }

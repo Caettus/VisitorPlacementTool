@@ -8,27 +8,14 @@ public class Group
     public int ChildCount { get; private set; }
     public bool ContainsAdult { get; private set; }
     public bool IsPlaced { get; private set; }
+    public bool ContainsChild { get; private set; }
+    public bool ChidrenSeated { get; private set; }
 
     public Group()
     {
         VisitorsList = new List<Visitor>();
     }
 
-    public bool CheckIfGroupContainsAdult()
-    {
-        bool containsAdult = false;
-        foreach (var visitor in VisitorsList)
-        {
-            if (visitor.Adult)
-            {
-                ContainsAdult = true;
-                containsAdult = true;
-                break;
-            }
-        }
-
-        return containsAdult;
-    }
 
     public void CountVisitors()
     {
@@ -38,14 +25,43 @@ public class Group
             if (visitor.Adult)
             {
                 AdultCount++;
+                ContainsAdult = true;
             }
             else if (!visitor.Adult)
             {
                 ChildCount++;
+                ContainsChild = true;
             }
         }
     }
+    public bool CheckIfChildrenSeated()
+    {
+        ChidrenSeated = true;
+        foreach (var visitor in VisitorsList)
+        {
+            if (!visitor.Adult && !visitor.Seated)
+            {
+                ChidrenSeated = false;
+            }
+            else if (!visitor.Adult && visitor.Seated)
+            {
+                ChidrenSeated = true;
+            }
+        }
+        return ChidrenSeated;
+    }
 
+    public void CheckIfGroupSeated()
+    {
+        IsPlaced = true;
+        foreach (var visitor in VisitorsList)
+        {
+            if (!visitor.Seated)
+            {
+                IsPlaced = false;
+            }
+        }
+    }
     
     //DateTime.Today is de signup deadline
     // public bool CheckSignUpDate()

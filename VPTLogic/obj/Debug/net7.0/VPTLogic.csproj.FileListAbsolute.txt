@@ -10,3 +10,15 @@
 /Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/obj/Debug/net7.0/refint/VPTLogic.dll
 /Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/obj/Debug/net7.0/VPTLogic.pdb
 /Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTLogic/obj/Debug/net7.0/ref/VPTLogic.dll
+C:\Users\vince\Source\Repos\VisitorPlacementTool\VPTLogic\bin\Debug\net7.0\VPTLogic.deps.json
+C:\Users\vince\Source\Repos\VisitorPlacementTool\VPTLogic\bin\Debug\net7.0\VPTLogic.dll
+C:\Users\vince\Source\Repos\VisitorPlacementTool\VPTLogic\bin\Debug\net7.0\VPTLogic.pdb
+C:\Users\vince\Source\Repos\VisitorPlacementTool\VPTLogic\obj\Debug\net7.0\VPTLogic.csproj.AssemblyReference.cache
+C:\Users\vince\Source\Repos\VisitorPlacementTool\VPTLogic\obj\Debug\net7.0\VPTLogic.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\vince\Source\Repos\VisitorPlacementTool\VPTLogic\obj\Debug\net7.0\VPTLogic.AssemblyInfoInputs.cache
+C:\Users\vince\Source\Repos\VisitorPlacementTool\VPTLogic\obj\Debug\net7.0\VPTLogic.AssemblyInfo.cs
+C:\Users\vince\Source\Repos\VisitorPlacementTool\VPTLogic\obj\Debug\net7.0\VPTLogic.csproj.CoreCompileInputs.cache
+C:\Users\vince\Source\Repos\VisitorPlacementTool\VPTLogic\obj\Debug\net7.0\VPTLogic.dll
+C:\Users\vince\Source\Repos\VisitorPlacementTool\VPTLogic\obj\Debug\net7.0\refint\VPTLogic.dll
+C:\Users\vince\Source\Repos\VisitorPlacementTool\VPTLogic\obj\Debug\net7.0\VPTLogic.pdb
+C:\Users\vince\Source\Repos\VisitorPlacementTool\VPTLogic\obj\Debug\net7.0\ref\VPTLogic.dll
