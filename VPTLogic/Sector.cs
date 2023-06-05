@@ -28,35 +28,6 @@ public class Sector
         return rowsHaveBeenCreated;
     }
     
-    public void CountTotalSeats()
-    {
-        int totalSeats = 0;
-
-        foreach (var row in RowsList)
-        {
-            totalSeats += row.SeatsList.Count();
-        }
-
-        TotalSeats = totalSeats;
-    }
-    
-    public bool CheckIfFull()
-    {
-        bool full = true;
-        foreach (var row in RowsList)
-        {
-            foreach (var seat in row.SeatsList)
-            {
-                if (!seat.Occupied)
-                {
-                    full = false;
-                    break;
-                }
-            }
-        }
-        return full;
-    }
-    
     public void PlaceInRow(Group group)
     {
             foreach (var row in RowsList)
@@ -79,6 +50,8 @@ public class Sector
             sector.RowsList[0].PlaceVisitors(group);
         }
     }
+
+    #region Counting and Checking Methods
     public bool CheckIfFrontSeatsFull()
     {
         if (RowsList[0].CheckIfFull())
@@ -91,4 +64,34 @@ public class Sector
         }
         return FrontSeatsFull;
     }
+
+    public void CountTotalSeats()
+    {
+        int totalSeats = 0;
+
+        foreach (var row in RowsList)
+        {
+            totalSeats += row.SeatsList.Count();
+        }
+
+        TotalSeats = totalSeats;
+    }
+
+    public bool CheckIfFull()
+    {
+        bool full = true;
+        foreach (var row in RowsList)
+        {
+            foreach (var seat in row.SeatsList)
+            {
+                if (!seat.Occupied)
+                {
+                    full = false;
+                    break;
+                }
+            }
+        }
+        return full;
+    }
+    #endregion
 }
