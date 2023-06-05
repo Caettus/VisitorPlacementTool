@@ -123,6 +123,7 @@ public class Tournament
     #region Placement
     public void PlaceGroups()
     {
+        OrderGroupsByChildrenCount();
         foreach (var group in Groups)
         {
             PlaceInSector(group);
@@ -130,24 +131,23 @@ public class Tournament
     }
     public void PlaceInSector(Group group)
     {
-        OrderGroupsByChildrenCount();
         group.OrderGroupByAge();
         foreach (Sector sector in SectorsList)
         {
+            sector.CheckIfFrontSeatsFull();
             if (group.ContainsChild && !sector.FrontSeatsFull && !group.CheckIfChildrenSeated())
             {
                 PlaceChildrenInSector(sector, group);
             }
+            //hij moet hier naar de volgende sector gaan in plaats van gewoon de kinderen ergens anders neer te stoppen.
             else if (!sector.CheckIfFull())
             {
                 sector.PlaceInRow(group);
-            }   
+            }
         }
     }
     public void PlaceChildrenInSector(Sector sector, Group group)
     {
-        OrderGroupsByChildrenCount();
-        group.OrderGroupByAge();
         if (sector.RowsList[0].SeatsLeft > group.ChildCount)
         {
             sector.RowsList[0].PlaceVisitors(group);
@@ -158,7 +158,6 @@ public class Tournament
                 sector.PlaceInRow(group);
             }
         }
-
     }
     #endregion
 

@@ -61,6 +61,8 @@ public class Row
                 Full = false;
             }
         }
+
+        CountSeatsLeft();
        return Full;
     }
 

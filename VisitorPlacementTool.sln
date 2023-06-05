@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VPTConsole", "VPTConsole\VP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VPTLogic", "VPTLogic\VPTLogic.csproj", "{130C0495-7981-4D10-A55C-9ED31D74EF06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VPTTest", "VPTTest\VPTTest.csproj", "{5301024B-7299-40F9-8D05-BB02BF0583A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{130C0495-7981-4D10-A55C-9ED31D74EF06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{130C0495-7981-4D10-A55C-9ED31D74EF06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{130C0495-7981-4D10-A55C-9ED31D74EF06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5301024B-7299-40F9-8D05-BB02BF0583A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5301024B-7299-40F9-8D05-BB02BF0583A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5301024B-7299-40F9-8D05-BB02BF0583A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5301024B-7299-40F9-8D05-BB02BF0583A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

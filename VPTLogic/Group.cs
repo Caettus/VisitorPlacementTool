@@ -11,8 +11,11 @@ public class Group
     public bool ContainsChild { get; private set; }
     public bool ChidrenSeated { get; private set; }
 
+    
+    private static int groupIdCounter = 1;
     public Group()
     {
+        GroupId = groupIdCounter++;
         VisitorsList = new List<Visitor>();
     }
 
