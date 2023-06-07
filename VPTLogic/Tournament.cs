@@ -129,26 +129,39 @@ public class Tournament
             PlaceInSector(group);
         }
     }
+    
     public void PlaceInSector(Group group)
     {
         group.OrderGroupByAge();
+        //eerst zoeken of een plaats vrij is voor de kids
+        Sector suitableSectorForChildren = null;
         foreach (Sector sector in SectorsList)
         {
             sector.CheckIfFrontSeatsFull();
-            if (group.ContainsChild && !sector.FrontSeatsFull && !group.CheckIfChildrenSeated())
+            if (group.ContainsChild && !sector.FrontSeatsFull && sector.RowsList[0].SeatsLeft >= group.ChildCount)
             {
-                PlaceChildrenInSector(sector, group);
+                suitableSectorForChildren = sector;
+                break;
             }
-            //hij moet hier naar de volgende sector gaan in plaats van gewoon de kinderen ergens anders neer te stoppen.
-            else if (!sector.CheckIfFull())
+        }
+
+        //zo ja, top plaats ze.
+        if (suitableSectorForChildren != null)
+        {
+            PlaceChildrenInSector(suitableSectorForChildren, group);
+            foreach (Sector sector in SectorsList)
             {
-                sector.PlaceInRow(group);
+                if (!sector.CheckIfFull())
+                {
+                    sector.PlaceInRow(group);
+                }
             }
         }
     }
+
     public void PlaceChildrenInSector(Sector sector, Group group)
     {
-        if (sector.RowsList[0].SeatsLeft > group.ChildCount)
+        if (sector.RowsList[0].SeatsLeft >= group.ChildCount)
         {
             sector.RowsList[0].PlaceVisitors(group);
             group.CheckIfChildrenSeated();
