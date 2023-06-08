@@ -85,4 +85,21 @@ public class Group
     //     }
     //     return correctSignupDate;
     // }
+    
+    #region test methods
+    public void ChangeAdultCount(int amount)
+    {
+        AdultCount += amount;
+    }
+    
+    public void ChangeChildCount(int amount)
+    {
+        ChildCount += amount;
+    }
+    
+    public void ChangeContainsAdult(bool value)
+    {
+        ContainsAdult = value;
+    }
+    #endregion
 }

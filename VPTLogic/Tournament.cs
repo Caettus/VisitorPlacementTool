@@ -2,10 +2,11 @@ namespace VPTLogic;
 
 public class Tournament
 {
-    public List<Sector> SectorsList { get; private set; }
-    public List<Group> Groups { get; private set; }
+    public List<Sector> SectorsList { get; set; }
+    public List<Group> Groups { get; set; }
     public char[] sectorLetters = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-    public int MaxVisitors { get; private set; }
+    public int MaxVisitors { get; set; }
+    //dit moet public zijn want: 1 individuele specifieke test runnen is blijkbaar exact hetzelfde als het totale programma runnen
     public int VisitorsAmount { get; private set; }
     public DateOnly SignupDeadline { get; private set; }
     public Tournament()
@@ -70,7 +71,6 @@ public class Tournament
             Groups.Add(group);
         }
     }
-
     
     public void CheckGroups()
     {   
