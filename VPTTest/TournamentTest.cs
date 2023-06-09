@@ -6,6 +6,7 @@ namespace VPTTest;
 [TestClass]
 public class TournamentTest
 {
+    // 1
     [TestMethod]
     public void CreateSectors_Test()
     {
@@ -17,6 +18,7 @@ public class TournamentTest
         Assert.IsTrue(result);
     }
 
+    // 2
     [TestMethod]
     public void CreateVisitors_VisitorsAmountTest()
     {
@@ -31,6 +33,7 @@ public class TournamentTest
         Assert.IsTrue(isWithinRange, "The number of visitors is not within the expected range.");
     }
     
+    // 3
     [TestMethod]
     public void CreateVisitors_GroupsAmountTest()
     {
@@ -45,6 +48,7 @@ public class TournamentTest
         Assert.IsTrue(isWithinRange, "The number of groups is not within the expected range.");
     }
     
+    // 4
     [TestMethod]
     public void CreateVisitors_GroupedVisitorsTest()
     {
@@ -64,7 +68,8 @@ public class TournamentTest
         }
         Assert.AreEqual(tournament.VisitorsAmount, actualGroupedVisitors, "Total amount of grouped visitors  should equal VisitorsAmount");
     }
-
+    
+    // 5
     [TestMethod]
     public void CheckGroups_RemoveGroupsTest()
     {
@@ -112,4 +117,66 @@ public class TournamentTest
         }
     }
 
+    // 6
+    [TestMethod] 
+    public void PlaceInSector_ChildrenNotPlacedTest()
+    {
+        // Arrange
+        var sectorsList = new List<Sector>
+        {
+            new Sector(1, 1, 'A'),
+            new Sector(1, 1, 'B'),
+            new Sector(1, 1, 'C')
+        };
+
+        var group = new Group();
+        group.ChangeContainsChild(true);
+        group.ChangeChildCount(500);
+        group.ChangeAdultCount(5);
+        group.ChangeContainsAdult(true);
+
+        Tournament tournament = new Tournament(); 
+
+        // Act
+        tournament.PlaceInSector(group);
+
+        // Assert
+        foreach (var sector in sectorsList)
+        {
+            Assert.IsFalse(sector.FrontSeatsFull);
+            if (sector.FrontSeatsFull)
+            {
+                Console.WriteLine($"Front seats in sector {sector} are incorrectly marked as full.");
+            }
+        }
+    }
+    
+    // 7
+    // Ik heb geen idee waarom dit niet werkt, maar het zou moeten werken.
+    [TestMethod]
+    public void PlaceInSector_ChildrenPlacedTest()
+    {
+        // Arrange
+        Sector sector = new Sector(3, 10, 'A');
+        
+        Group newgroup = new Group();
+        {
+            newgroup.ChangeContainsChild(true);
+            newgroup.ChangeChildCount(8);
+            newgroup.ChangeAdultCount(4);
+            newgroup.ChangeContainsAdult(true);
+        }
+        newgroup.AddGroupCountToVisitorsList(4, 8);
+        
+        Tournament tournament = new Tournament(); 
+        tournament.SectorsList.Add(sector);
+        tournament.Groups.Add(newgroup);
+        
+
+        // Act
+        tournament.PlaceInSector(newgroup);
+
+        // Assert
+        Assert.IsTrue(sector.FrontSeatsFull);
+    }
 }

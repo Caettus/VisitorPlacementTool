@@ -38,7 +38,7 @@ public class Row
     }
 
 
-    public void PlaceInSeats(Visitor visitor, Group group)
+    private void PlaceInSeats(Visitor visitor, Group group)
     {
             foreach (Seat seat in SeatsList)
             {
@@ -66,7 +66,7 @@ public class Row
        return Full;
     }
 
-    public int CountSeatsLeft()
+    private int CountSeatsLeft()
     {
         int seatsLeft = 0;
         foreach (Seat seat in SeatsList)

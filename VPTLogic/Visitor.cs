@@ -69,4 +69,11 @@ public class Visitor
         AssignedSeat = seatCode;
         Seated = true;
     }
+    
+    #region test methods
+    public void ChangeAdultStatus(bool adult)
+    {
+        Adult = adult;
+    }
+    #endregion
 }

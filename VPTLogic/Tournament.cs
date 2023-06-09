@@ -96,7 +96,7 @@ public class Tournament
     }
     
     #region Counting
-    public void CountMaxVisitors()
+    private void CountMaxVisitors()
     {
         int maxVisitors = 0;
         foreach (var sector in SectorsList)
@@ -159,7 +159,7 @@ public class Tournament
         }
     }
 
-    public void PlaceChildrenInSector(Sector sector, Group group)
+    private void PlaceChildrenInSector(Sector sector, Group group)
     {
         if (sector.RowsList[0].SeatsLeft >= group.ChildCount)
         {
@@ -176,7 +176,7 @@ public class Tournament
 
     #region Ordering
 
-    public void OrderGroupsByChildrenCount()
+    private void OrderGroupsByChildrenCount()
     {
         var orderGroups = Groups.OrderByDescending(g => g.ChildCount);
         Groups = orderGroups.ToList();

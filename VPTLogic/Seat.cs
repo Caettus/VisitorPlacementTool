@@ -6,6 +6,7 @@ public class Seat
     public string Code { get; private set; }
     public bool Occupied { get; private set; }
     public Visitor SeatedVisitor { get; private set;}
+    
     public Seat(int seatNumber, string rowCode)
     {
         FollowNumber = seatNumber;

@@ -14,7 +14,7 @@ public class Sector
         CreateRows(rowCount, rowLength);
     }
 
-    public bool CreateRows(int rowCount, int rowLength)
+    private bool CreateRows(int rowCount, int rowLength)
     {
         bool rowsHaveBeenCreated = false;
 
@@ -41,14 +41,6 @@ public class Sector
                     continue;
                 }
             } 
-    }
-
-    public void PlaceChildrenInSector(Sector sector, Group group)
-    {
-        if (sector.RowsList[0].SeatsLeft > group.ChildCount)
-        {
-            sector.RowsList[0].PlaceVisitors(group);
-        }
     }
 
     #region Counting and Checking Methods

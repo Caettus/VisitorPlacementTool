@@ -101,5 +101,32 @@ public class Group
     {
         ContainsAdult = value;
     }
+    public void ChangeContainsChild(bool value)
+    {
+        ContainsChild = value;
+    }
+
+    public void AddGroupCountToVisitorsList(int childCount, int adultCount)
+    {
+        if (childCount != 0)
+        {
+            for (int i = 0; i < childCount; i++)
+            {
+                Visitor visitor = new Visitor();
+                visitor.ChangeAdultStatus(false);
+                VisitorsList.Add(visitor);
+            }
+        }
+
+        if (adultCount != 0)
+        {
+            for (int i = 0; i < adultCount; i++)
+            {
+                Visitor visitor = new Visitor();
+                visitor.ChangeAdultStatus(true);
+                VisitorsList.Add(visitor);
+            }
+        }
+    }
     #endregion
 }
