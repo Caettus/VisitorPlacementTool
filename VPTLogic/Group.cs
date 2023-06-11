@@ -44,6 +44,37 @@ public class Group
             }
         }
     }
+
+    public void ResetSeatedStatus()
+    {
+        foreach (Visitor visitor in VisitorsList)
+        {
+            if (!visitor.Adult)
+            {
+                ChildrenSeated = false;
+            }
+            else if (visitor.Adult)
+            {
+                AdultsSeated = false;
+            }
+        }
+    }
+    
+    #region Check Methods
+    public int CheckAdultsLeft()
+    {
+        int adultsLeft = 0;
+        foreach (var visitor in VisitorsList)
+        {
+            if (visitor.Adult && !visitor.Seated)
+            {
+                adultsLeft++;
+            }
+        }
+        AdultsLeft = adultsLeft;
+        return adultsLeft;
+    }
+    
     public bool CheckIfVisitorSeated()
     {
         ChildrenSeated = true;
@@ -80,35 +111,8 @@ public class Group
             }
         }
     }
-
-    public void ResetSeatedStatus()
-    {
-        foreach (Visitor visitor in VisitorsList)
-        {
-            if (!visitor.Adult)
-            {
-                ChildrenSeated = false;
-            }
-            else if (visitor.Adult)
-            {
-                AdultsSeated = false;
-            }
-        }
-    }
     
-    public int CheckAdultsLeft()
-    {
-        int adultsLeft = 0;
-        foreach (var visitor in VisitorsList)
-        {
-            if (visitor.Adult && !visitor.Seated)
-            {
-                adultsLeft++;
-            }
-        }
-        AdultsLeft = adultsLeft;
-        return adultsLeft;
-    }
+    #endregion
 
     
     //DateTime.Today is de signup deadline

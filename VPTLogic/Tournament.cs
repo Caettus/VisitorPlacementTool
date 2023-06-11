@@ -16,7 +16,7 @@ public class Tournament
         SignupDeadline = DateOnly.FromDateTime(DateTime.Now);
     }
     
-    
+    #region Create Methods
     public bool CreateSectors()
     {
         Random r = new Random();
@@ -71,6 +71,8 @@ public class Tournament
             Groups.Add(group);
         }
     }
+    
+    #endregion
     
     public void CheckGroups()
     {   
@@ -133,25 +135,13 @@ public class Tournament
     public void PlaceInSector(Group group)
     {
         group.OrderGroupByAge();
-        // First, search for a place for the kids
-        Sector suitableSectorForChildren = null;
+        Sector suitableSectorForChildren = FindSuitableSectorForChildren(group);
 
-        foreach (Sector sector in SectorsList)
-        {
-            sector.CheckIfFrontSeatsFull();
-            if (group.ContainsChild && !sector.FrontSeatsFull && sector.RowsList[0].SeatsLeft >= group.ChildCount)
-            {
-                suitableSectorForChildren = sector;
-                break;
-            }
-        }
-
-        // If a suitable sector for the children is found, try to place the entire group
         if (suitableSectorForChildren != null)
         {
             PlaceChildrenInSector(suitableSectorForChildren, group);
         }
-        else if (!group.ContainsChild) // If the group does not have any children, place them as before
+        else if (!group.ContainsChild)
         {
             foreach (Sector sector in SectorsList)
             {
@@ -163,6 +153,19 @@ public class Tournament
         }
     }
 
+    private Sector FindSuitableSectorForChildren(Group group)
+    {
+        foreach (Sector sector in SectorsList)
+        {
+            sector.CheckIfFrontSeatsFull();
+            if (group.ContainsChild && !sector.FrontSeatsFull && sector.RowsList[0].SeatsLeft >= group.ChildCount)
+            {
+                return sector;
+            }
+        }
+        return null;
+    }
+
     private void PlaceChildrenInSector(Sector sector, Group group)
     {
         if (sector.RowsList[0].SeatsLeft >= group.ChildCount)
@@ -170,9 +173,9 @@ public class Tournament
             sector.RowsList[0].PlaceVisitors(group);
             group.CheckIfVisitorSeated();
 
-            
             sector.CountSeatsLeft();
             int seatsAvailable = sector.SeatsLeft;
+        
             if (seatsAvailable >= group.AdultCount)
             {
                 group.CheckIfGroupSeated();
@@ -202,6 +205,7 @@ public class Tournament
             }
         }
     }
+
     #endregion
 
     #region Ordering

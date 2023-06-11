@@ -7,7 +7,7 @@ namespace VPTTest;
 public class SectorTest
 {
     [TestMethod]
-    public void PlaceInRow_Should_PlaceVisitorsInFirstAvailableRow()
+    public void PlaceInRow_FirstRowTest()
     {
         // Arrange
 
@@ -36,8 +36,8 @@ public class SectorTest
         
 
         // Act
-        tournament.PlaceInSector(groupA);
-        tournament.PlaceInSector(groupB);
+        sectorA.PlaceInRow(groupA);
+        sectorA.PlaceInRow(groupA);
         
 
         // Assert

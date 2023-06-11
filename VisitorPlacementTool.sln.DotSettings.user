@@ -4,5 +4,8 @@
     &lt;ProjectFile&gt;5301024B-7299-40F9-8D05-BB02BF0583A5/f:TournamentTest.cs&lt;/ProjectFile&gt;
     &lt;ProjectFile&gt;5301024B-7299-40F9-8D05-BB02BF0583A5/f:GroupTest.cs&lt;/ProjectFile&gt;
     &lt;ProjectFile&gt;5301024B-7299-40F9-8D05-BB02BF0583A5/f:SectorTest.cs&lt;/ProjectFile&gt;
+    &lt;ProjectFile&gt;5301024B-7299-40F9-8D05-BB02BF0583A5/f:RowTest.cs&lt;/ProjectFile&gt;
+    &lt;ProjectFile&gt;5301024B-7299-40F9-8D05-BB02BF0583A5/f:Visitortest.cs&lt;/ProjectFile&gt;
+    &lt;ProjectFile&gt;5301024B-7299-40F9-8D05-BB02BF0583A5/f:SeatTest.cs&lt;/ProjectFile&gt;
   &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

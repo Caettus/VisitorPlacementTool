@@ -25,6 +25,8 @@ public class Row
         Code = sectorLetter.ToString() + RowNumber.ToString();
         SeatsList = new List<Seat>();
     }
+    
+    #region Place and Unplace methods
 
     public void PlaceVisitors(Group group)
     {
@@ -73,7 +75,11 @@ public class Row
                 }
             }
     }
+    
+    #endregion
 
+    
+    
     public bool CheckIfFull()
     {
         Full = true;

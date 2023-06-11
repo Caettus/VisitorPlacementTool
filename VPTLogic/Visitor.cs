@@ -17,7 +17,7 @@ public class Visitor
         GenerateSignupDate();
     }
     
-    
+    #region Generate Methods
     private static int lastGeneratedId = 0;
 
     private static int GenerateNewId()
@@ -26,7 +26,7 @@ public class Visitor
         return lastGeneratedId;
     }
 
-    public void GenerateName()
+    private void GenerateName()
     {
         Random r = new Random();
         int len = r.Next(3, 7);
@@ -47,7 +47,7 @@ public class Visitor
         Name = name;
     }
     
-    public void GenerateAdultStatus()
+    private void GenerateAdultStatus()
     {
         Random random = new Random();
         int age = random.Next(4, 65);
@@ -57,12 +57,13 @@ public class Visitor
         }
     }
     
-    public void GenerateSignupDate()
+    private void GenerateSignupDate()
     {
         Random random = new Random();
         int days = random.Next(1, 365);
         SignupDate = DateTime.Now.AddDays(-days);
     }
+    #endregion
 
     public void PlaceVisitor(string seatCode)
     {
@@ -80,6 +81,14 @@ public class Visitor
     public void ChangeAdultStatus(bool adult)
     {
         Adult = adult;
+    }
+    public void ChangeAssignedSeat(string seatCode)
+    {
+        AssignedSeat = seatCode;
+    }
+    public void ChangeSeatedStatus(bool seated)
+    {
+        Seated = seated;
     }
     #endregion
 }
