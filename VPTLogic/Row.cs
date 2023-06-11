@@ -37,6 +37,29 @@ public class Row
         }
     }
 
+    public void UnplaceVisitors(Group group)
+    {
+        foreach (Visitor visitor in group.VisitorsList)
+        {
+            if (visitor.Seated)
+            {
+                UnplaceFromSeat(visitor);
+            }
+        }
+    }
+
+    private void UnplaceFromSeat(Visitor visitor)
+    {
+        foreach (Seat seat in SeatsList)
+        {
+            if (seat.Occupied)
+            {
+                seat.SetUnoccupied();
+                visitor.UnplaceVisitor();
+                break;
+            }
+        }
+    }
 
     private void PlaceInSeats(Visitor visitor, Group group)
     {
@@ -61,12 +84,11 @@ public class Row
                 Full = false;
             }
         }
-
         CountSeatsLeft();
        return Full;
     }
 
-    private int CountSeatsLeft()
+    public int CountSeatsLeft()
     {
         int seatsLeft = 0;
         foreach (Seat seat in SeatsList)

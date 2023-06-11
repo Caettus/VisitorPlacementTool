@@ -9,7 +9,9 @@ public class Group
     public bool ContainsAdult { get; private set; }
     public bool IsPlaced { get; private set; }
     public bool ContainsChild { get; private set; }
-    public bool ChidrenSeated { get; private set; }
+    public bool ChildrenSeated { get; private set; }
+    public bool AdultsSeated { get; private set; }
+    public int AdultsLeft { get; private set; }
 
     
     private static int groupIdCounter = 1;
@@ -42,21 +44,29 @@ public class Group
             }
         }
     }
-    public bool CheckIfChildrenSeated()
+    public bool CheckIfVisitorSeated()
     {
-        ChidrenSeated = true;
+        ChildrenSeated = true;
         foreach (var visitor in VisitorsList)
         {
             if (!visitor.Adult && !visitor.Seated)
             {
-                ChidrenSeated = false;
+                ChildrenSeated = false;
             }
             else if (!visitor.Adult && visitor.Seated)
             {
-                ChidrenSeated = true;
+                ChildrenSeated = true;
+            }
+            else if (visitor.Adult && !visitor.Seated)
+            {
+                AdultsSeated = false;
+            }
+            else if (visitor.Adult && visitor.Seated)
+            {
+                AdultsSeated = true;
             }
         }
-        return ChidrenSeated;
+        return ChildrenSeated;
     }
 
     public void CheckIfGroupSeated()
@@ -70,6 +80,36 @@ public class Group
             }
         }
     }
+
+    public void ResetSeatedStatus()
+    {
+        foreach (Visitor visitor in VisitorsList)
+        {
+            if (!visitor.Adult)
+            {
+                ChildrenSeated = false;
+            }
+            else if (visitor.Adult)
+            {
+                AdultsSeated = false;
+            }
+        }
+    }
+    
+    public int CheckAdultsLeft()
+    {
+        int adultsLeft = 0;
+        foreach (var visitor in VisitorsList)
+        {
+            if (visitor.Adult && !visitor.Seated)
+            {
+                adultsLeft++;
+            }
+        }
+        AdultsLeft = adultsLeft;
+        return adultsLeft;
+    }
+
     
     //DateTime.Today is de signup deadline
     // public bool CheckSignUpDate()

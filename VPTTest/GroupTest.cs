@@ -80,5 +80,4 @@ public class GroupTest
         // Assert
         Assert.AreEqual(4, group.VisitorsList.Count);
     }
-    
 }

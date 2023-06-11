@@ -18,4 +18,10 @@ public class Seat
         SeatedVisitor = visitor;
         Occupied = true;
     }
+    
+    public void SetUnoccupied()
+    {
+        SeatedVisitor = null;
+        Occupied = false;
+    }
 }

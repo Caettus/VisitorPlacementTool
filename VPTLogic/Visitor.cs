@@ -70,6 +70,12 @@ public class Visitor
         Seated = true;
     }
     
+    public void UnplaceVisitor()
+    {
+        AssignedSeat = null;
+        Seated = false;
+    }
+    
     #region test methods
     public void ChangeAdultStatus(bool adult)
     {

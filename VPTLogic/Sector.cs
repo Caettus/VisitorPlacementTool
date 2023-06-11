@@ -6,6 +6,7 @@ public class Sector
     public List<Row> RowsList { get; private set; }
     public int TotalSeats { get; private set; }
     public bool FrontSeatsFull { get; private set; }
+    public int SeatsLeft { get; private set; }
     
     public Sector(int rowCount, int rowLength, char sectorLetter)
     {
@@ -85,5 +86,18 @@ public class Sector
         }
         return full;
     }
+
+    public int CountSeatsLeft()
+    {
+        int seatsLeft = 0;
+        foreach (Row row in RowsList)
+        {
+            row.CountSeatsLeft();
+            seatsLeft += row.SeatsLeft;
+        }
+        SeatsLeft = seatsLeft;
+        return seatsLeft;
+    }
+
     #endregion
 }

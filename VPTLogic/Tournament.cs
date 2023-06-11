@@ -133,8 +133,9 @@ public class Tournament
     public void PlaceInSector(Group group)
     {
         group.OrderGroupByAge();
-        //eerst zoeken of een plaats vrij is voor de kids
+        // First, search for a place for the kids
         Sector suitableSectorForChildren = null;
+
         foreach (Sector sector in SectorsList)
         {
             sector.CheckIfFrontSeatsFull();
@@ -145,10 +146,13 @@ public class Tournament
             }
         }
 
-        //zo ja, top plaats ze.
+        // If a suitable sector for the children is found, try to place the entire group
         if (suitableSectorForChildren != null)
         {
             PlaceChildrenInSector(suitableSectorForChildren, group);
+        }
+        else if (!group.ContainsChild) // If the group does not have any children, place them as before
+        {
             foreach (Sector sector in SectorsList)
             {
                 if (!sector.CheckIfFull())
@@ -164,11 +168,37 @@ public class Tournament
         if (sector.RowsList[0].SeatsLeft >= group.ChildCount)
         {
             sector.RowsList[0].PlaceVisitors(group);
-            group.CheckIfChildrenSeated();
-            group.CheckIfGroupSeated();
-            if (group.ChidrenSeated && !group.IsPlaced)
+            group.CheckIfVisitorSeated();
+
+            
+            sector.CountSeatsLeft();
+            int seatsAvailable = sector.SeatsLeft;
+            if (seatsAvailable >= group.AdultCount)
             {
-                sector.PlaceInRow(group);
+                group.CheckIfGroupSeated();
+                if (group.ChildrenSeated && !group.IsPlaced)
+                {
+                    sector.PlaceInRow(group);
+                    group.CheckIfGroupSeated();
+                    if (!group.IsPlaced)
+                    {
+                        foreach (Row row in sector.RowsList)
+                        {
+                            row.UnplaceVisitors(group);
+                            group.ResetSeatedStatus();
+                        }
+                    }
+                }
+            }
+
+            group.CheckAdultsLeft();
+            if (group.AdultsLeft > seatsAvailable)
+            {
+                foreach (Row row in sector.RowsList)
+                {
+                    row.UnplaceVisitors(group);
+                    group.ResetSeatedStatus();
+                }
             }
         }
     }
