@@ -132,6 +132,19 @@ public class Tournament
         }
     }
     
+    private Sector FindSuitableSectorForChildren(Group group)
+    {
+        foreach (Sector sector in SectorsList)
+        {
+            sector.CheckIfFrontSeatsFull();
+            if (group.ContainsChild && !sector.FrontSeatsFull && sector.RowsList[0].SeatsLeft >= group.ChildCount)
+            {
+                return sector;
+            }
+        }
+        return null;
+    }
+    
     public void PlaceInSector(Group group)
     {
         group.OrderGroupByAge();
@@ -151,19 +164,6 @@ public class Tournament
                 }
             }
         }
-    }
-
-    private Sector FindSuitableSectorForChildren(Group group)
-    {
-        foreach (Sector sector in SectorsList)
-        {
-            sector.CheckIfFrontSeatsFull();
-            if (group.ContainsChild && !sector.FrontSeatsFull && sector.RowsList[0].SeatsLeft >= group.ChildCount)
-            {
-                return sector;
-            }
-        }
-        return null;
     }
 
     private void PlaceChildrenInSector(Sector sector, Group group)
