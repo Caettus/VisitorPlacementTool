@@ -185,7 +185,7 @@ public class Tournament
     }
 
 
-    private bool TryPlaceInSector(Group group)
+    public bool TryPlaceInSector(Group group)
     {
         foreach (Sector sector in SectorsList)
         {

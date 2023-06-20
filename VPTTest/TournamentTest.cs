@@ -138,7 +138,7 @@ public class TournamentTest
         Tournament tournament = new Tournament(); 
 
         // Act
-        tournament.PlaceInSector(group);
+        tournament.TryPlaceInSector(group);
 
         // Assert
         foreach (var sector in sectorsList)
@@ -173,7 +173,7 @@ public class TournamentTest
 
 
         // Act
-        tournament.PlaceInSector(newgroup);
+        tournament.PlaceGroups();
         sector.CheckIfFrontSeatsFull();
 
         // Assert
