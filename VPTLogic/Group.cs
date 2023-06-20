@@ -45,7 +45,7 @@ public class Group
         }
     }
 
-    public void ResetSeatedStatus()
+    public void ResetSeatedStatus(Group group)
     {
         foreach (Visitor visitor in VisitorsList)
         {
@@ -57,10 +57,20 @@ public class Group
             {
                 AdultsSeated = false;
             }
+            visitor.UnplaceVisitor();
         }
+
     }
     
     #region Check Methods
+
+    public void DefaultCheck()
+    {
+        CheckIfGroupSeated();
+        CheckIfVisitorSeated();
+        CheckAdultsLeft();
+    }
+
     public int CheckAdultsLeft()
     {
         int adultsLeft = 0;

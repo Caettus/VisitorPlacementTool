@@ -9,6 +9,7 @@ tournament.CreateSectors();
 tournament.CreateVisitors();
 tournament.CheckGroups();
 tournament.PlaceGroups();
+tournament.CheckIfGroupsSeated();
 
 
 foreach (var sector in tournament.SectorsList)

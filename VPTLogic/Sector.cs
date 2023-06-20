@@ -44,6 +44,36 @@ public class Sector
             } 
     }
 
+
+    public void PlaceVisitors(Sector sector, Group group)
+    {
+        CheckIfFrontSeatsFull();
+        group.DefaultCheck();
+        if (group.ContainsChild && !sector.FrontSeatsFull && !group.ChildrenSeated)
+        {
+            PlaceChildrenInSector(group);
+        }
+        else { PlaceInRow(group);  }
+
+    }
+
+    private void PlaceChildrenInSector(Group group)
+    {
+        if (RowsList[0].SeatsLeft > group.ChildCount)
+        {
+            RowsList[0].PlaceVisitors(group);
+        }
+        group.DefaultCheck();
+        if (group.ChildrenSeated && !group.IsPlaced)
+        {
+            PlaceInRow(group);
+        }
+        CheckIfFrontSeatsFull();
+        CheckIfFull();
+        CountSeatsLeft();
+    }
+
+
     #region Counting and Checking Methods
     public bool CheckIfFrontSeatsFull()
     {

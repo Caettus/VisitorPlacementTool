@@ -8,12 +8,11 @@ public class Tournament
     public int MaxVisitors { get; set; }
     //dit moet public zijn want: 1 individuele specifieke test runnen is blijkbaar exact hetzelfde als het totale programma runnen
     public int VisitorsAmount { get; private set; }
-    public DateOnly SignupDeadline { get; private set; }
+    public int SeatsLeft { get; private set; }
     public Tournament()
     {
         SectorsList = new List<Sector>();
         Groups = new List<Group>();
-        SignupDeadline = DateOnly.FromDateTime(DateTime.Now);
     }
     
     #region Create Methods
@@ -97,6 +96,28 @@ public class Tournament
         }
     }
     
+    public void CheckIfGroupsSeated()
+    {
+        foreach (Group group in Groups)
+        {
+            group.DefaultCheck();
+            if (!group.IsPlaced)
+            {
+                TryPlaceInSector(group);
+            }
+            if (group.AdultsSeated && !group.ChildrenSeated)
+            {
+                group.ResetSeatedStatus(group);
+                UnplaceGroup(group);
+            }
+            else if (!group.AdultsSeated && group.ChildrenSeated)
+            {
+                group.ResetSeatedStatus(group);
+                UnplaceGroup(group);    
+            }
+        }
+    }
+
     #region Counting
     private void CountMaxVisitors()
     {
@@ -120,91 +141,81 @@ public class Tournament
         }
         return rowSeats;
     }
+
+    public int CountSeatsLeft()
+    {
+        SeatsLeft = 0;
+        foreach ( Sector sector in SectorsList)
+        {
+            sector.CountSeatsLeft();
+            SeatsLeft += sector.SeatsLeft;
+        }
+        return SeatsLeft;
+    }
     #endregion
-    
+
     #region Placement
+
     public void PlaceGroups()
     {
-        OrderGroupsByChildrenCount();
-        foreach (var group in Groups)
+        foreach (Group group in Groups)
         {
-            PlaceInSector(group);
+            group.DefaultCheck();
+            while (!group.IsPlaced)
+            {
+                CountSeatsLeft();
+                if (SeatsLeft >= group.VisitorsList.Count())
+                {
+                    group.OrderGroupByAge();
+                    group.DefaultCheck();
+                    if (!TryPlaceInSector(group))
+                    {
+                        break;
+                    }
+                    CountSeatsLeft();
+                }
+                else { break; }
+            }
+            if(group.IsPlaced)
+            {
+                continue;
+            }
+
         }
     }
-    
-    private Sector FindSuitableSectorForChildren(Group group)
+
+
+    private bool TryPlaceInSector(Group group)
     {
         foreach (Sector sector in SectorsList)
         {
-            sector.CheckIfFrontSeatsFull();
-            if (group.ContainsChild && !sector.FrontSeatsFull && sector.RowsList[0].SeatsLeft >= group.ChildCount)
+            if (sector.SeatsLeft >= group.VisitorsList.Count())
             {
-                return sector;
+                sector.PlaceVisitors(sector, group);
+                group.DefaultCheck();
+                if (!group.IsPlaced)
+                {
+                    continue;
+                }
+                return true;
             }
         }
-        return null;
+        return false;
     }
-    
-    public void PlaceInSector(Group group)
+
+
+    private void UnplaceGroup(Group group)
     {
-        group.OrderGroupByAge();
-        Sector suitableSectorForChildren = FindSuitableSectorForChildren(group);
-
-        if (suitableSectorForChildren != null)
+        foreach (Sector sector in SectorsList)
         {
-            PlaceChildrenInSector(suitableSectorForChildren, group);
-        }
-        else if (!group.ContainsChild)
-        {
-            foreach (Sector sector in SectorsList)
+            foreach (Row row in sector.RowsList)
             {
-                if (!sector.CheckIfFull())
-                {
-                    sector.PlaceInRow(group);
-                }
+                row.UnplaceVisitors(group);
             }
         }
     }
 
-    private void PlaceChildrenInSector(Sector sector, Group group)
-    {
-        if (sector.RowsList[0].SeatsLeft >= group.ChildCount)
-        {
-            sector.RowsList[0].PlaceVisitors(group);
-            group.CheckIfVisitorSeated();
 
-            sector.CountSeatsLeft();
-            int seatsAvailable = sector.SeatsLeft;
-        
-            if (seatsAvailable >= group.AdultCount)
-            {
-                group.CheckIfGroupSeated();
-                if (group.ChildrenSeated && !group.IsPlaced)
-                {
-                    sector.PlaceInRow(group);
-                    group.CheckIfGroupSeated();
-                    if (!group.IsPlaced)
-                    {
-                        foreach (Row row in sector.RowsList)
-                        {
-                            row.UnplaceVisitors(group);
-                            group.ResetSeatedStatus();
-                        }
-                    }
-                }
-            }
-
-            group.CheckAdultsLeft();
-            if (group.AdultsLeft > seatsAvailable)
-            {
-                foreach (Row row in sector.RowsList)
-                {
-                    row.UnplaceVisitors(group);
-                    group.ResetSeatedStatus();
-                }
-            }
-        }
-    }
 
     #endregion
 
