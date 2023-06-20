@@ -12,6 +12,7 @@ public class Group
     public bool ChildrenSeated { get; private set; }
     public bool AdultsSeated { get; private set; }
     public int AdultsLeft { get; private set; }
+    public int UnseatedGroupMembers { get; private set; }
 
     
     private static int groupIdCounter = 1;
@@ -43,6 +44,16 @@ public class Group
                 ContainsChild = true;
             }
         }
+    }
+
+
+    public void DefaultCheck()
+    {
+        CountVisitors();
+        CheckIfGroupSeated();
+        CheckIfVisitorSeated();
+        CheckAdultsLeft();
+        CountUnseatedGroupMembers();
     }
 
     public void ResetSeatedStatus()
@@ -111,10 +122,10 @@ public class Group
             }
         }
     }
-    
+
     #endregion
 
-    
+
     //DateTime.Today is de signup deadline
     // public bool CheckSignUpDate()
     // {
@@ -129,7 +140,12 @@ public class Group
     //     }
     //     return correctSignupDate;
     // }
-    
+
+    public void CountUnseatedGroupMembers()
+    {
+        UnseatedGroupMembers = VisitorsList.Count(x => x.Seated == false);
+    }
+
     #region test methods
     public void ChangeAdultCount(int amount)
     {

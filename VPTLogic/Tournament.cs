@@ -8,12 +8,14 @@ public class Tournament
     public int MaxVisitors { get; set; }
     //dit moet public zijn want: 1 individuele specifieke test runnen is blijkbaar exact hetzelfde als het totale programma runnen
     public int VisitorsAmount { get; private set; }
-    public DateOnly SignupDeadline { get; private set; }
+    public int SeatsLeft { get; private set; }
+    public bool BackRowSeatsTaken { get; private set; }
+    public bool FrontRowSeatsTaken { get; private set; }
+    public bool TournamentFull { get; private set; }
     public Tournament()
     {
         SectorsList = new List<Sector>();
         Groups = new List<Group>();
-        SignupDeadline = DateOnly.FromDateTime(DateTime.Now);
     }
     
     #region Create Methods
@@ -126,9 +128,28 @@ public class Tournament
     public void PlaceGroups()
     {
         OrderGroupsByChildrenCount();
+        
         foreach (var group in Groups)
         {
-            PlaceInSector(group);
+            CountSeatsLeft();
+            while (!group.IsPlaced)
+            {
+                if(SeatsLeft >= group.VisitorsList.Count())
+                {
+                    group.OrderGroupByAge();
+                    group.DefaultCheck();
+                    if(!TryPlaceInSector(group))
+                    {
+                        break;
+                    }
+                    CountSeatsLeft();
+                }
+                else
+                {
+                    break;
+                }
+            }
+
         }
     }
     
@@ -136,7 +157,7 @@ public class Tournament
     {
         foreach (Sector sector in SectorsList)
         {
-            sector.CheckIfFrontSeatsFull();
+            sector.CheckIfFrontSeatsAreTaken();
             if (group.ContainsChild && !sector.FrontSeatsFull && sector.RowsList[0].SeatsLeft >= group.ChildCount)
             {
                 return sector;
@@ -144,27 +165,51 @@ public class Tournament
         }
         return null;
     }
-    
-    public void PlaceInSector(Group group)
-    {
-        group.OrderGroupByAge();
-        Sector suitableSectorForChildren = FindSuitableSectorForChildren(group);
 
-        if (suitableSectorForChildren != null)
+    private bool TryPlaceInSector(Group group)
+    {
+        bool groupCanBePlaced = true;
+        // while loop to make sure all group members are placed - if there aren't enough seats a group will be skipped
+        while (!group.IsPlaced && groupCanBePlaced)
         {
-            PlaceChildrenInSector(suitableSectorForChildren, group);
-        }
-        else if (!group.ContainsChild)
-        {
-            foreach (Sector sector in SectorsList)
+            DefaultTournamentCheck();
+            Sector suitableSectorForChildren = FindSuitableSectorForChildren(group);
+
+            if (suitableSectorForChildren != null)
             {
-                if (!sector.CheckIfFull())
+                PlaceChildrenInSector(suitableSectorForChildren, group);
+            }
+            else if (!group.ContainsChild)
+            {
+                foreach (var sector in SectorsList)
                 {
-                    sector.PlaceInRow(group);
+                    group.DefaultCheck();
+                    // if sector is full skip to next sector and check if unseated group members fit in the sector
+                    if (!sector.CheckIfFull())
+                    {
+                        // try placing the group in the sector
+                        sector.PlaceInRow( group);
+
+                        // if group is not yet placed, place group in next sector
+                        if (!group.IsPlaced)
+                        {
+                            continue;
+                        }
+                        break;
+                    }
                 }
             }
+            group.DefaultCheck();   
+            // if no group members are placed in any sector, group cannot be placed
+            if (group.UnseatedGroupMembers == group.VisitorsList.Count())
+            {
+                groupCanBePlaced = false;
+            }
         }
+        return groupCanBePlaced;
     }
+
+
 
     private void PlaceChildrenInSector(Sector sector, Group group)
     {
@@ -175,7 +220,7 @@ public class Tournament
 
             sector.CountSeatsLeft();
             int seatsAvailable = sector.SeatsLeft;
-        
+
             if (seatsAvailable >= group.AdultCount)
             {
                 group.CheckIfGroupSeated();
@@ -206,6 +251,8 @@ public class Tournament
         }
     }
 
+
+
     #endregion
 
     #region Ordering
@@ -214,6 +261,66 @@ public class Tournament
     {
         var orderGroups = Groups.OrderByDescending(g => g.ChildCount);
         Groups = orderGroups.ToList();
+    }
+
+    private int CountSeatsLeft()
+    {
+        int seatsLeft = 0;
+        foreach (var sector in SectorsList)
+        {
+            seatsLeft += sector.SeatsLeft;
+        }
+        return seatsLeft;
+    }
+
+
+    private void DefaultTournamentCheck()
+    {
+        CheckIfFull();
+        CheckIfFrontSeatsTaken();
+        CheckIfBackSeatsTaken();
+    }
+
+    private bool CheckIfBackSeatsTaken()
+    {
+        BackRowSeatsTaken = true;
+        foreach (var sector in SectorsList)
+        {
+            if (!sector.CheckIfBackRowSeatsAreTaken())
+            {
+                BackRowSeatsTaken = false;
+                break;
+            }
+        }
+        return BackRowSeatsTaken;
+    }
+
+    private bool CheckIfFrontSeatsTaken()
+    {
+        FrontRowSeatsTaken = true;
+        foreach (var sector in SectorsList)
+        {
+            if (!sector.FrontSeatsFull)
+            {
+                FrontRowSeatsTaken = false;
+                break;
+            }
+        }
+        return FrontRowSeatsTaken;
+    }
+
+    private bool CheckIfFull()
+    {
+        TournamentFull = true;
+        foreach (var sector in SectorsList)
+        {
+            if (!sector.Full)
+            {
+                TournamentFull = false;
+                break;
+            }
+        }
+        return TournamentFull;
     }
 
     #endregion

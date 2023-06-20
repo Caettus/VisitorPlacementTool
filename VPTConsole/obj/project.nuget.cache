@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Z7SjyRaMXS59S1QthSt3WLYXuEhakQnKQBtUkxXQeNWkxiKXEfNmxx6I3z1B7G2uw9VEl9wgUXobYc2GN9iQpQ==",
+  "dgSpecHash": "qVPjgd0upyTUfDoT+Uc4pmMAJEai7faOonX3oGn4oNtQMt8RNPPhVx5rYJtT3xK3XjZ4TigBPfpniK3mnU/bUQ==",
   "success": true,
-  "projectFilePath": "/Users/vincentscheffer/RiderProjects/VisitorPlacementTool/VPTConsole/VPTConsole.csproj",
+  "projectFilePath": "C:\\Users\\vince\\source\\repos\\VisitorPlacementTool\\VPTConsole\\VPTConsole.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
