@@ -8,7 +8,7 @@ Tournament tournament = new Tournament();
 tournament.CreateSectors();
 tournament.CreateVisitors();
 tournament.CheckGroups();
-tournament.PlaceVisitors();
+tournament.PlaceGroups();
 
 
 foreach (var sector in tournament.SectorsList)
