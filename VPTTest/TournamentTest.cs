@@ -150,33 +150,33 @@ public class TournamentTest
             }
         }
     }
-    
+
     // // 7
-    // // Ik heb geen idee waarom dit niet werkt, maar het zou moeten werken.
-    // [TestMethod]
-    // public void PlaceInSector_ChildrenPlacedTest()
-    // {
-    //     // Arrange
-    //     Sector sector = new Sector(3, 10, 'A');
-    //     
-    //     Group newgroup = new Group();
-    //     {
-    //         newgroup.ChangeContainsChild(true);
-    //         newgroup.ChangeChildCount(8);
-    //         newgroup.ChangeAdultCount(4);
-    //         newgroup.ChangeContainsAdult(true);
-    //     }
-    //     newgroup.AddGroupCountToVisitorsList(4, 8);
-    //     
-    //     Tournament tournament = new Tournament(); 
-    //     tournament.SectorsList.Add(sector);
-    //     tournament.Groups.Add(newgroup);
-    //     
-    //
-    //     // Act
-    //     tournament.PlaceInSector(newgroup);
-    //
-    //     // Assert
-    //     Assert.IsTrue(sector.FrontSeatsFull);
-    // }
+    [TestMethod]
+    public void PlaceInSector_ChildrenPlacedTest()
+    {
+        // Arrange
+        Sector sector = new Sector(3, 10, 'A');
+
+        Group newgroup = new Group();
+        {
+            newgroup.ChangeContainsChild(true);
+            newgroup.ChangeChildCount(8);
+            newgroup.ChangeAdultCount(4);
+            newgroup.ChangeContainsAdult(true);
+        }
+        newgroup.AddGroupCountToVisitorsList(4, 8);
+
+        Tournament tournament = new Tournament();
+        tournament.SectorsList.Add(sector);
+        tournament.Groups.Add(newgroup);
+
+
+        // Act
+        tournament.PlaceInSector(newgroup);
+        sector.CheckIfFrontSeatsFull();
+
+        // Assert
+        Assert.IsTrue(sector.FrontSeatsFull);
+    }
 }
